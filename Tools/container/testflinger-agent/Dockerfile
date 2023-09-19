@@ -106,11 +106,11 @@ RUN chmod +x /usr/local/bin/jenkins-agent &&\
     ln -s /usr/local/bin/jenkins-agent /usr/local/bin/jenkins-slave
 
 USER "${user}"
-ENV AGENT_WORKDIR=${AGENT_WORKDIR}
-RUN mkdir /home/${user}/.jenkins && mkdir -p "${AGENT_WORKDIR}"
-
-VOLUME /home/"${user}"/.jenkins
-VOLUME "${AGENT_WORKDIR}"
+# ENV AGENT_WORKDIR=${AGENT_WORKDIR}
+# RUN mkdir /home/${user}/.jenkins && mkdir -p "${AGENT_WORKDIR}"
+# 
+# VOLUME /home/"${user}"/.jenkins
+# VOLUME "${AGENT_WORKDIR}"
 WORKDIR /home/"${user}"
 ENV user=${user}
 LABEL \
