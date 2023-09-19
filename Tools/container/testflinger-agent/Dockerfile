@@ -105,12 +105,11 @@ COPY jenkins-agent /usr/local/bin/jenkins-agent
 RUN chmod +x /usr/local/bin/jenkins-agent &&\
     ln -s /usr/local/bin/jenkins-agent /usr/local/bin/jenkins-slave
 
-USER "${user}"
-# ENV AGENT_WORKDIR=${AGENT_WORKDIR}
-# RUN mkdir /home/${user}/.jenkins && mkdir -p "${AGENT_WORKDIR}"
-# 
-# VOLUME /home/"${user}"/.jenkins
-# VOLUME "${AGENT_WORKDIR}"
+ENV AGENT_WORKDIR=${AGENT_WORKDIR}
+RUN mkdir /home/${user}/.jenkins && mkdir -p "${AGENT_WORKDIR}"
+
+VOLUME /home/"${user}"/.jenkins
+VOLUME "${AGENT_WORKDIR}"
 WORKDIR /home/"${user}"
 ENV user=${user}
 LABEL \
@@ -122,6 +121,7 @@ LABEL \
   org.opencontainers.image.source="https://github.com/jenkinsci/docker-agent" \
   org.opencontainers.image.licenses="MIT"
 
+USER "${user}"
 ENV INFLUX_HOST=localhost \
     INFLUX_PORT=8086 \
     INFLUX_USER=testflinger-agent \
