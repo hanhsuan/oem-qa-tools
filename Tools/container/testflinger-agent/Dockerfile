@@ -121,7 +121,6 @@ LABEL \
   org.opencontainers.image.source="https://github.com/jenkinsci/docker-agent" \
   org.opencontainers.image.licenses="MIT"
 
-USER "${user}"
 ENV INFLUX_HOST=localhost \
     INFLUX_PORT=8086 \
     INFLUX_USER=testflinger-agent \
@@ -131,4 +130,7 @@ RUN python3 -m pip install pip -U \
     && git clone https://github.com/canonical/testflinger-agent.git && python3 -m pip install -I testflinger-agent/ \
     && git clone https://github.com/canonical/snappy-device-agents.git && python3 -m pip install -I snappy-device-agents/ 
 
+RUN chown ${user}:${group} -R /home/${user}/*
+
+USER "${user}"
 ENTRYPOINT ["/usr/local/bin/jenkins-agent"]
