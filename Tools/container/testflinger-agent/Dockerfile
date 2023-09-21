@@ -31,6 +31,7 @@ RUN apt-get update \
     python3-pip \
     python3-dev \
     checkbox-ng \
+    checkbox-support \
     ssh-import-id \
     openjdk-17-jre-headless \
   && apt-get clean \
