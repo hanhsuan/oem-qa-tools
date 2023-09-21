@@ -52,6 +52,7 @@ COPY jenkins-agent /usr/local/bin/jenkins-agent
 RUN chmod +x /usr/local/bin/jenkins-agent &&\
     ln -s /usr/local/bin/jenkins-agent /usr/local/bin/jenkins-slave
 
+USER "${user}"
 ENV AGENT_WORKDIR=${AGENT_WORKDIR}
 RUN mkdir /home/${user}/.jenkins && mkdir -p "${AGENT_WORKDIR}"
 
@@ -71,5 +72,4 @@ RUN python3 -m pip install pip -U \
 
 RUN chown ${user}:${group} -R /home/${user}/*
 
-USER "${user}"
 ENTRYPOINT ["/usr/local/bin/jenkins-agent"]
