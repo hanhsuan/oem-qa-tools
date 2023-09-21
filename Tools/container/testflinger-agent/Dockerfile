@@ -4,6 +4,7 @@ ARG user=jenkins
 ARG group=jenkins
 ARG uid=1000
 ARG gid=1000
+ARG CHECKBOX_PPA=ppa:checkbox-dev/testing
 
 RUN groupadd -g "${gid}" "${group}" \
   && useradd -l -c "Jenkins user" -d /home/"${user}" -u "${uid}" -g "${gid}" -m "${user}"
@@ -13,7 +14,7 @@ ENV TZ=Asia/Taipei
 
 RUN apt-get update \
   && apt-get --yes install software-properties-common gpg \
-  && add-apt-repository -y ppa:checkbox-dev/testing \
+  && add-apt-repository -y ${CHECKBOX_PPA} \
   && apt-get update \
   && DEBIAN_FRONTEND=noninteractive \
     apt-get --yes --no-install-recommends install \
