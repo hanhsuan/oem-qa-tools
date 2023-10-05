@@ -68,7 +68,8 @@ ENV INFLUX_HOST=localhost \
     
 RUN python3 -m pip install pip -U \
     && git clone https://github.com/canonical/testflinger-agent.git && python3 -m pip install -I testflinger-agent/ \
-    && git clone https://github.com/canonical/snappy-device-agents.git && python3 -m pip install -I snappy-device-agents/ 
+    && git clone https://github.com/canonical/snappy-device-agents.git && python3 -m pip install -I snappy-device-agents/ \
+    && git clone https://github.com/canonical/testflinger-cli.git && python3 -m pip install -I testflinger-cli/ 
 
 RUN chown ${user}:${group} -R /home/${user}/*
 
