@@ -35,6 +35,7 @@ RUN apt-get update \
     ssh-import-id \
     openjdk-17-jre-headless \
     shellcheck \
+    jq \
   && apt-get clean \
   && rm -rf /tmp/* /var/cache/* /usr/share/doc/* /usr/share/man/* /var/lib/apt/lists/*
 
