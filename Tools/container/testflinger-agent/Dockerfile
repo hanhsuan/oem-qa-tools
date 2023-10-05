@@ -34,6 +34,7 @@ RUN apt-get update \
     python3-checkbox-support \
     ssh-import-id \
     openjdk-17-jre-headless \
+    shellcheck \
   && apt-get clean \
   && rm -rf /tmp/* /var/cache/* /usr/share/doc/* /usr/share/man/* /var/lib/apt/lists/*
 
