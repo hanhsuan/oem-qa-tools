@@ -36,6 +36,7 @@ RUN apt-get update \
     openjdk-17-jre-headless \
     shellcheck \
     jq \
+    sshpass \
   && apt-get clean \
   && rm -rf /tmp/* /var/cache/* /usr/share/doc/* /usr/share/man/* /var/lib/apt/lists/*
 
