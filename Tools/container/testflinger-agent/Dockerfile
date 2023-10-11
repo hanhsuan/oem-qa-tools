@@ -37,6 +37,7 @@ RUN apt-get update \
     shellcheck \
     jq \
     sshpass \
+    influxdb \
   && apt-get clean \
   && rm -rf /tmp/* /var/cache/* /usr/share/doc/* /usr/share/man/* /var/lib/apt/lists/*
 
