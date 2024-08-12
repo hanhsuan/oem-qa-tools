@@ -24,7 +24,10 @@ def update_duts_info_on_c3(data: list[dict], new_holder: str):
                 parse_location(dut['location'])['Lab'].replace('-', '_')].value
         }
         print(f"Updating {dut['cid']}")
+        print(payload)
         res = c3.update_dut_by_cid(cid=dut['cid'], payload=payload)
+        print("return from c3")
+        print(res)
         if res.status_code < 200 or res.status_code > 299:
             raise Exception('Error: update failed')
 

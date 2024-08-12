@@ -81,18 +81,18 @@ def main():
             update_duts_info_on_c3(
                 data=data['data'], new_holder=args.c3_holder)
             # Remove DUTs from HIC site
-            print('-' * 5 + 'Removing from HIC' + '-' * 5)
-            delete_duts_from_hic(cids=[d['cid'] for d in data['data']])
-            # Create Jira card to TELOPS board
-            # No matter the process is qa_process or contractor process
-            # There's always need cards in TELOPS board
-            print('-' * 5 + 'Creating card to TELOPS board' + '-' * 5)
-            create_send_dut_to_cert_card_in_telops(
-                cqt_card=key,
-                description_original_data=data['description_original_data'],
-                assignee_original_id=data['assignee_original_id'],
-                data=data['data']
-            )
+            # print('-' * 5 + 'Removing from HIC' + '-' * 5)
+            # delete_duts_from_hic(cids=[d['cid'] for d in data['data']])
+            # # Create Jira card to TELOPS board
+            # # No matter the process is qa_process or contractor process
+            # # There's always need cards in TELOPS board
+            # print('-' * 5 + 'Creating card to TELOPS board' + '-' * 5)
+            # create_send_dut_to_cert_card_in_telops(
+            #     cqt_card=key,
+            #     description_original_data=data['description_original_data'],
+            #     assignee_original_id=data['assignee_original_id'],
+            #     data=data['data']
+            # )
         if args.scenario == 'returned_process':
             # Get CID information from Jira card
             cid_list = get_returned_cid_info_from_a_jira(args.key)
