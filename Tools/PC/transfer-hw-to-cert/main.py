@@ -9,7 +9,7 @@ from handlers.telops_handler import create_send_dut_to_cert_card_in_telops
 from handlers.cert_team_google_sheet_handler import (
     update_cert_lab_google_sheet
 )
-from handlers.c3_handler import (
+from handlers.c3_v2_handler import (
     update_duts_info_on_c3,
     update_returned_duts_info_on_c3
 )
