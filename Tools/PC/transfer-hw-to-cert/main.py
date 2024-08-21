@@ -10,10 +10,10 @@ from handlers.telops_handler import create_send_dut_to_cert_card_in_telops
 from handlers.cert_team_google_sheet_handler import (
     update_cert_lab_google_sheet
 )
-# from handlers.c3_v2_handler import (
-#     update_duts_info_on_c3,
-#     update_returned_duts_info_on_c3
-# )
+from handlers.c3_v2_handler import (
+    update_duts_info_on_c3,
+    update_returned_duts_info_on_c3
+)
 from handlers.notifier import add_comment
 from handlers.hic_handler import delete_duts as delete_duts_from_hic
 from utils.common import is_valid_cid, is_valid_location
@@ -49,20 +49,6 @@ def register_arguments():
     return parser.parse_args()
 
 
-def target_c3_api(function: str) -> object:
-    """ Get target c3 api, V1 or V2
-    """
-    if os.getenv("C3_API_VERSION", "V1") == "V1":
-        target_cls_name = "handlers.c3_handler"
-    else:
-        target_cls_name = "handlers.c3_v2_handler"
-    mod = __import__(function, fromlist=[target_cls_name])
-    target_cls = getattr(mod, target_cls_name)
-    c3_api = target_cls()
-
-    return c3_api
-
-
 def main():
     args = register_arguments()
 
@@ -93,7 +79,7 @@ def main():
             update_cert_lab_google_sheet(data['data'])
             # Update DUT holder and location on C3
             print('-' * 5 + 'Updating C3' + '-' * 5)
-            target_c3_api("update_duts_info_on_c3")(
+            update_duts_info_on_c3(
                 data=data['data'], new_holder=args.c3_holder)
             # Remove DUTs from HIC site
             # print('-' * 5 + 'Removing from HIC' + '-' * 5)
@@ -115,7 +101,7 @@ def main():
             print('-' * 5 + 'Updating C3' + '-' * 5)
             for cid in cid_list:
                 # Update DUT info on C3 for each CID
-                target_c3_api("update_returned_duts_info_on_c3")(
+                update_returned_duts_info_on_c3(
                     data=[{'cid': cid}], status='Returned to partner/customer')
             # Remove DUTs from HIC site
             print('-' * 5 + 'Removing from HIC' + '-' * 5)
