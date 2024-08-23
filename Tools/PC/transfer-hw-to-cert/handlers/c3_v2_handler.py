@@ -24,15 +24,16 @@ def update_duts_info_on_c3(data: list[dict], new_holder: str):
         print(f"Updating {dut['cid']}")
         # detach hostdata
         resp = detach_hostdata(dut["cid"], hostdatas)
+        print(resp)
         # TODO check the cid is None
         loc = parse_location(dut["location"])
         pos = LabPosition(
             loc["Lab"], loc["Frame"], int(loc["Shelf"]), int(loc["Partition"])
         )
-        print(pos)
         hostdata_id = get_hostdata_id(pos)
         # link to new hostdata
         resp = link_hostdata(dut["cid"], hostdata_id)
+        print(resp)
         # TODO check the cid is correct
         # TODO There is no V2 API to change holder by lunchpad name.
         #      Have to wait or find the solution.
