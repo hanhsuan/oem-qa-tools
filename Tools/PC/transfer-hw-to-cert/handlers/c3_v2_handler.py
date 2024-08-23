@@ -1,3 +1,4 @@
+import logging
 from modules.c3_relay_service.relay_service import (
     get_hostdata_list,
     get_hostdata_id,
@@ -22,13 +23,11 @@ def update_duts_info_on_c3(data: list[dict], new_holder: str):
     hostdatas = get_hostdata_list(None, "DUT")
     for dut in data:
         cid = dut['cid']
-        print(f"Updating {cid}")
+        logging.info(f"Updating {cid}")
         # detach hostdata
         resp = detach_hostdata(cid, hostdatas)
-        print(resp["canonical_id"])
-        # TODO check the cid is None
         if resp["canonical_id"]:
-            print(f"detach hostdata from CID:{cid} failed")
+            logging.error(f"detach hostdata from CID:{cid} failed")
         loc = parse_location(dut["location"])
         pos = LabPosition(
             loc["Lab"], loc["Frame"], int(loc["Shelf"]), int(loc["Partition"])
@@ -36,10 +35,8 @@ def update_duts_info_on_c3(data: list[dict], new_holder: str):
         hostdata_id = get_hostdata_id(pos)
         # link to new hostdata
         resp = link_hostdata(cid, hostdata_id)
-        print(resp["canonical_id"])
-        # TODO check the cid is correct
         if resp["canonical_id"] != cid:
-            print(f"link hostdata to CID:{cid} failed")
+            logging.error(f"link hostdata to CID:{cid} failed")
         # TODO There is no V2 API to change holder by lunchpad name.
         #      Have to wait or find the solution.
 
@@ -57,10 +54,12 @@ def update_returned_duts_info_on_c3(data: list[dict], status: str):
     """
     hostdatas = get_hostdata_list(None, "DUT")
     for dut in data:
-        print(f"Updating {dut['cid']}")
+        cid = dut["cid"]
+        logging.info(f"Updating {cid}")
         # detach hostdata
-        resp = detach_hostdata(dut["cid"], hostdatas)
-        # TODO check the cid is None
+        resp = detach_hostdata(cid, hostdatas)
+        if resp["canonical_id"]:
+            logging.error(f"detach hostdata from CID:{cid} failed")
         # TODO update status
         # TODO There is no V2 API to change location.
         #      Have to wait or find the solution.
