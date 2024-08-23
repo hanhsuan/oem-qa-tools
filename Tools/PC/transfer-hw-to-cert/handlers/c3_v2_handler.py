@@ -29,6 +29,7 @@ def update_duts_info_on_c3(data: list[dict], new_holder: str):
         pos = LabPosition(
             loc["Lab"], loc["Frame"], int(loc["Shelf"]), int(loc["Partition"])
         )
+        print(pos)
         hostdata_id = get_hostdata_id(pos)
         # link to new hostdata
         resp = link_hostdata(dut["cid"], hostdata_id)
