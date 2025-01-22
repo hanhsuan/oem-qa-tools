@@ -40,6 +40,11 @@ printf "\nCopying checkbox.conf to ~/.conf and /etc/xdg ...\n"
 sudo cp ./conf/plainbox.conf "$HOME"/.config/checkbox.conf
 sudo cp ./conf/plainbox.conf /etc/xdg/checkbox.conf
 
+# Create machine-manifest.json file owned by currect user
+# to prevent remote test to create one by root
+printf "\nCreate machine-manifest.json under /var/tmp/checkbox-ng/ ...\n"
+touch /var/tmp/checkbox-ng/machine-manifest.json
+
 while true; do
     read -r -p "Press 'r' to reboot or 'e' to exit: " rse
     case $rse in
